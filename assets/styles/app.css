@@ -1,3 +1,11 @@
 body {
-    background-color: skyblue;
+    background-color: #f4f6f9;
+}
+.btn-primary {
+    background-color: #1d70b8;
+    border-color: #135187;
+}
+.btn-primary:hover {
+    background-color: #135187;
+    border-color: #135187;
 }

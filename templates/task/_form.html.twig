@@ -1,4 +1,6 @@
-{{ form_start(form) }}
+{{ form_start(form, {'action': path('app_task_new')}) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="modal-footer justify-content-end">
+        <button type="submit" class="btn btn-primary mb-3">{{ button_label|default('Save Task') }}</button>
+    </div>    
 {{ form_end(form) }}
