@@ -1,0 +1,14 @@
+{{ form_start(form, {
+    'action': path('app_task_edit', {'id': task.id})
+}) }}
+
+{{ form_row(form.title) }}
+{{ form_row(form.description) }}
+{{ form_row(form.status) }}
+{{ form_row(form.dueDate) }}
+
+<div class="text-end mt-3">
+    <button class="btn btn-primary"> Save </button
+</div>
+
+{{ form_end(form) }}

@@ -66,9 +66,9 @@ final class TaskController extends AbstractController
             return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('task/edit.html.twig', [
+        return $this->render('task/_edit_form.html.twig', [
             'task' => $task,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
