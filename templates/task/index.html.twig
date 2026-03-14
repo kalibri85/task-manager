@@ -9,13 +9,21 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>actions</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Due date/time</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for task in tasks %}
             <tr>
+                <td></td>
                 <td>{{ task.id }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.dueDate }}</td>
                 <td>
                     <a href="{{ path('app_task_show', {'id': task.id}) }}">show</a>
                     <a href="{{ path('app_task_edit', {'id': task.id}) }}">edit</a>
