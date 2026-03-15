@@ -15,6 +15,9 @@ use Knp\Component\Pager\PaginatorInterface;
 
 final class TaskController extends AbstractController
 {
+    // List of tasks, optional filter: status, hide done. 
+    // Use KnpPaginatorBundle to paginate result, 5 tasks per page. 
+    // Routes: GET / and GET /task
     #[Route('/', name: 'home', methods: ['GET'])]
     #[Route('/task', name: 'app_task_index', methods: ['GET'])]
     public function index(Request $request, TaskRepository $taskRepository, PaginatorInterface $paginator): Response
@@ -50,7 +53,8 @@ final class TaskController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    // Create new task. 
+    // Route: GET /task/new - show the form and POST /task/new - submit the form
     #[Route('/task/new', name: 'app_task_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -70,7 +74,8 @@ final class TaskController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    // Show details of the single task 
+    // Routes: GET /{id}
     #[Route('/{id}', name: 'app_task_show', methods: ['GET'])]
     public function show(Task $task): Response
     {
@@ -78,7 +83,8 @@ final class TaskController extends AbstractController
             'task' => $task,
         ]);
     }
-
+    // Edit an existing task by ID. 
+    // Routes: GET /{id}/edit - show edit form and POST /{id}/edit - submit the form
     #[Route('/{id}/edit', name: 'app_task_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Task $task, EntityManagerInterface $entityManager): Response
     {
@@ -96,7 +102,8 @@ final class TaskController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    // Delete a task by ID. 
+    // Routes: POST /{id} - delete action
     #[Route('/{id}', name: 'app_task_delete', methods: ['POST'])]
     public function delete(Request $request, Task $task, EntityManagerInterface $entityManager): Response
     {
