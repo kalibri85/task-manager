@@ -15,7 +15,7 @@ class TaskRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Task::class);
     }
-
+    // Returns all tasks ordered by due date (ascending)
     public function findAllTasksByDueDate(){
         return $this->createQueryBuilder('t')
             ->orderBy('t.dueDate', 'ASC')

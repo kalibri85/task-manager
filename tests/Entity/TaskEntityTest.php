@@ -4,6 +4,7 @@ namespace App\Entity\Entity;
 use App\Entity\Task;
 use PHPUnit\Framework\TestCase;
 
+// Test basic getters and setters of Task entity
 class TaskEntityTest extends TestCase{
     public function testTaskEntity(): void {
         $task = new Task();

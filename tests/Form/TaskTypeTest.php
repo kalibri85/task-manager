@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
+// Tests TaskType form submition with valid data
 class TaskTypeTest extends TypeTestCase{
     public function testSubmitValidData(){
         $formData = [
