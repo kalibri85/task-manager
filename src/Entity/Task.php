@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+// Represents a task stored in the database.
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
 {
@@ -15,6 +16,7 @@ class Task
     #[ORM\Column]
     private ?int $id = null;
 
+    // Task title (required)
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Title cannot be empty")]
     #[Assert\Length(
@@ -23,6 +25,7 @@ class Task
     )]
     private ?string $title = null;
 
+    // Task description (optional)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\Length(
         max: 1000,
@@ -30,9 +33,11 @@ class Task
     )]
     private ?string $description = null;
 
+    // Current task status. 
     #[ORM\Column(length: 100)]
     private ?string $status = null;
 
+    // Task due date and time
    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $dueDate = null;
 
