@@ -1,6 +1,10 @@
 body {
     background-color: #f4f6f9;
 }
+#hideDoneSwitch {
+    height: 30px; 
+    width: 50px
+}
 .btn-primary {
     background-color: #1d70b8;
     border-color: #135187;
@@ -8,4 +12,7 @@ body {
 .btn-primary:hover {
     background-color: #135187;
     border-color: #135187;
+}
+.form-check-label {
+    line-height: 35px;
 }
