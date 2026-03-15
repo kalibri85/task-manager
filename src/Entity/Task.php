@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TaskRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
@@ -15,9 +16,18 @@ class Task
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Title cannot be empty")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "Title cannot be longer than {{ limit }} characters"
+    )]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        max: 1000,
+        maxMessage: "Description cannot exceed {{ limit }} characters"
+    )]
     private ?string $description = null;
 
     #[ORM\Column(length: 100)]
@@ -55,7 +65,7 @@ class Task
             'Done' => self::STATUS_DONE,
         ];
     }
-    
+
     public function getDescription(): ?string
     {
         return $this->description;

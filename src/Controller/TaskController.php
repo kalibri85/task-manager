@@ -16,12 +16,24 @@ final class TaskController extends AbstractController
 {
     #[Route('/', name: 'home', methods: ['GET'])]
     #[Route('/task', name: 'app_task_index', methods: ['GET'])]
-    public function index(TaskRepository $taskRepository): Response
+    public function index(Request $request, TaskRepository $taskRepository): Response
     {   
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
+        $status = $request->query->get('status');
+
+        if($status) {
+            $tasks = $taskRepository->findBy(
+                ['status' => $status],
+                ['dueDate' => 'ASC']
+            );
+        } else {
+            $tasks = $taskRepository->findAllTasksByDueDate();
+        }
+
         return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findAll(),
+            'tasks' => $tasks,
+            'currentStatus'  => $status,
             'form' => $form->createView(),
         ]);
     }
