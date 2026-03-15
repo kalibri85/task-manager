@@ -32,5 +32,18 @@
                         });
                 });
             });
+
+            function submitToggle() {
+                const switchElement = document.getElementById('hideDoneSwitch');
+                const url = new URL(window.location.href);
+
+                url.searchParams.set('hideDone', switchElement.checked ? '1' : '0');
+
+                const status = document.querySelector('select[name="status"]');
+                if(status){
+                    url.searchParams.set('status', status.value);
+                }
+                window.location.href = url.toString();
+            }
         </script>
 </html>

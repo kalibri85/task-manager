@@ -11,29 +11,42 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 final class TaskController extends AbstractController
 {
     #[Route('/', name: 'home', methods: ['GET'])]
     #[Route('/task', name: 'app_task_index', methods: ['GET'])]
-    public function index(Request $request, TaskRepository $taskRepository): Response
+    public function index(Request $request, TaskRepository $taskRepository, PaginatorInterface $paginator): Response
     {   
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
         $status = $request->query->get('status');
+        $hideDone = $request->query->get('hideDone');
+
+        $queryBuilder = $taskRepository->createQueryBuilder('t')
+            ->orderBy('t.dueDate', 'ASC');
 
         if($status) {
-            $tasks = $taskRepository->findBy(
-                ['status' => $status],
-                ['dueDate' => 'ASC']
-            );
-        } else {
-            $tasks = $taskRepository->findAllTasksByDueDate();
+            $queryBuilder->andWhere('t.status = :status')
+                ->setParameter('status', $status);
         }
+
+        if($hideDone) {
+            $queryBuilder->andWhere('t.status != :done')
+                ->setParameter('done', 'done');
+        }
+
+        $tasks = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
 
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
             'currentStatus'  => $status,
+            'hideDone' => $hideDone,
             'form' => $form->createView(),
         ]);
     }
